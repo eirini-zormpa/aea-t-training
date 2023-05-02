@@ -3,7 +3,7 @@ title: "AEA Virtual Spring Conference R training - Day 1"
 author: "Eirini Zormpa"
 format:
   revealjs:
-    theme: moon
+    theme: [moon, custom.scss]
 from: markdown+emoji
 ---
 
