@@ -1,0 +1,466 @@
+---
+title: "AEA Virtual Spring Conference R training - Day 1"
+author: "Eirini Zormpa"
+format:
+  revealjs:
+    theme: moon
+from: markdown+emoji
+---
+
+## Hi, I'm Eirini :wave:
+
+```{r}
+library(here)
+library(readr)
+```
+
+
+- :baby: **BA in English Language and Literature** \@Aristotle University of Thessaloniki
+- :woman_student: **MSc in Language Sciences** \@Reading University
+- :woman_scientist: **PhD Candidate** \@Max Planck Institute for Psycholinguistics
+  - learned how to work with data in `R` and fell in love :sparkling_heart:
+- :woman_teacher: **Trainer on Research Data Management and Open Science** \@Delft University of Technology
+  - teaching intros to `R` as a Data Carpentry instructor
+- :woman_technologist: **Community Manager Open Collaboration** in AIM RSF \@The Alan Turing Institute
+
+# Part 1: Introduction to R
+
+## Why R?
+
+`R` is a programming language and the software used to interpret it.
+It is **free** and **open source**. :x: :moneybag: = :tada:
+
+It is great for:
+
+- **reproducibility**: `R` is not point-and-click, so when repeating an analysis, you don't have to remember what you pressed when. It's all written down for you in a script!
+- **working with data**: `R` was created by statisticians for statistics. It has useful features for data analysis and allows you to make beautiful graphics.
+- **working in any discipline**: `R` is open source, meaning anyone can contribute code to extend its functionality (currently in 10,000+ packages).
+
+## Why R Studio?
+
+**RStudio** is an Integrated Development Environment with a **free and open-source version**, which makes working with `R` much easier. It: 
+
+- makes it easier to develop code by allowing us to navigate computer files and inspect data and variables. We will use R entirely through RStudio.
+- supports reproducibility through features like `projects`.
+- provides a Graphical User Interface to work with `git`.
+
+::: aside
+*RStudio* used to also be the name of the company that develops RStudio but they are currently rebranding as *Posit*.
+:::
+
+## Learning objectives - part 1
+
+- :white_check_mark: Navigate the RStudio Graphical User Interface (GUI).
+- :white_check_mark: Install `packages` to access additional functionality.
+- :white_check_mark: Perform simple arithmetic calculations in R.
+- :white_check_mark: Understand programming terms, like `objects`, `functions`, `arguments` and `vectors`.
+- :white_check_mark: Learn basic ways to work with missing data.
+
+## R Projects: File paths :recycle:
+
+Below you see two ways of reading data into R.
+They both work and they both access the same file.
+Which one looks more reproducible?:
+
+
+```{r}
+#| echo: true
+#| eval: false
+
+# option 1: absolute path
+covid_data <- read_csv("/Users/ezormpa/Documents/aea-r-training/data/ceramics_data.csv")
+
+# option 2: relative path
+covid_data <- read_csv("data/ceramics_data.csv")
+```
+
+. . .
+
+Option 2 is more reproducible, as it allows you to move your project around on your computer and share it with others without having to directly modify file paths in the individual scripts.
+
+## R Projects: Folder structure :recycle:
+
+It is good practice to keep all files related to a project in a single folder, called the `working directory`.
+This includes data, scripts, outputs, and documentation.  
+
+This makes sharing and documenting your projects much easier.
+
+```{mermaid}
+flowchart TB
+  A[working-directory] --> B["data_raw/"]
+  A[working-directory] --> C["data_clean/"]
+  A[working-directory] --> D["figures/"]
+  A[working-directory] --> E([LICENCE.md])
+  A[working-directory] --> F([paper.qmd])
+  A[working-directory] --> G([README.md])
+  A[working-directory] --> H["scripts/"]
+
+```
+
+## Create an R Project
+
+1. Under the **`File`** menu, click on **`New project`**
+2. In the wizard that pops up click on **`New directory`** > **`New project`**
+3. You will now create the working directory for the rest of the workshop and save it in a convenient location.
+4. Give a good name to your new directory (folder), e.g. **`r-workshop`**. Make sure your name doesn't have spaces or special characters!
+5. Click on **`Browse`** and navigate to a suitable location for this repository and click on **`Open`** when you are in a location you are happy with.
+3. Click on **`Create project`**.
+
+## Exercise 1.1
+
+:alarm_clock: **3 mins**
+
+```{r}
+library(countdown)
+countdown(minutes = 3)
+```
+
+
+Find out the current content of the object `weight_lb`.
+
+## Exercise 1.1 solution
+
+Because we have not rerun the code `weight_lb <- 2.2*weight_kg` after assigning the new value of `weight_kg` the value of `weight_lb` is still `143`.
+
+## Exercise 1.2
+
+:alarm_clock: **5 mins**
+
+```{r}
+countdown(minutes = 5)
+```
+
+What are the values after each statement in the following?
+
+```{r}
+#| echo: true
+
+mass <- 47.5            # mass?
+age  <- 122             # age?
+mass <- mass * 2.0      # mass?
+age  <- age - 20        # age?
+mass_index <- mass/age  # mass_index?
+
+```
+
+
+## Functions and their arguments
+
+**Functions** are like "canned" scripts that do a specific task. 
+
+They usually take some kind of input (called an **argument**) and often give back some kind of output. 
+
+Running or executing a function is often termed **calling** a function. 
+
+The arguments of functions can be anything: e.g. numbers, filenames, but also other objects.
+
+## Vectors and data structures
+
+A **vector** is the simplest R data structure. 
+
+It is composed by a series of values **of the same type**, e.g.*character* and *numeric* (or *double*). 
+
+Other vector types are: *logical* for `TRUE` and `FALSE`, *integer* for integer numbers and two others we won't discuss (*complex* and *raw*).
+
+
+The other data structure, other than vectors, we'll talk about in these workshops is the **tibble**, which is a dataframe. 
+
+## Exercise 1.3
+
+:alarm_clock: **10 mins**
+
+```{r}
+countdown(minutes = 10)
+```
+
+What will happen in each of these examples?
+
+```{r}
+#| echo: true
+
+num_char <- c(1, 2, 3, "a")
+num_logical <- c(1, 2, 3, TRUE)
+char_logical <- c("a", "b", "c", TRUE)
+tricky <- c(1, 2, 3, "4")
+```
+
+**Hint**: use `typeof()` to check the data type of your objects
+
+## Exercise 1.3 solution
+
+Vectors can be of only **one data type**. R tries to convert (coerce) the content of this vector to find a "common denominator" that doesn’t lose any information.
+
+## Exercise 1.4
+
+:alarm_clock: **10 mins**
+
+```{r}
+countdown(minutes = 10)
+```
+
+
+```{r}
+heights <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, NA, 72, 65, 64, 70, 63, 65)
+```
+
+1. Using the above vector, create a new vector with the NAs removed.
+2. Use the function median() to calculate the median of the heights vector.
+3. How many people in the set are taller than 67 inches?
+
+## Interim summary 1
+
+So far you have learned how to:
+
+- interact with the RStudio GUI, 
+- set up projects, 
+- create files from RStudio, 
+- assign values to objects, 
+- use functions, 
+- create and subset vectors, 
+- work with missing data 
+
+# Part 2: Starting with data
+
+## Learning objectives
+
+- :white_check_mark: Read data into R.
+- :white_check_mark: Understand and manipulate `data frames`.
+- :white_check_mark: Understand and manipulate `factors`.
+- :white_check_mark: Alternate between date formats.
+
+## Data frames
+
+**Data frames** are the standard data structure for tabular data in `R`. 
+
+They look very similar to spreadsheets (like in Excel) but each column is, in fact, a vector.
+Each vector needs to be of the same length, for a perfectly rectangular shape :black_square_button:
+
+Note that because the columns are all vectors, they must all be of the *same type*.
+
+### A note on terminology
+
+Technically, what we will be working with in these workshops aren't `data.frames`, they are `tibbles`.
+`tibbles` are basically data frames for the `tidyverse` - they have some subtle differences but nothing you need to be aware of at this point.
+
+## Tabular data: What is tidy data?
+
+![](https://www.openscapes.org/img/blog/tidydata/tidydata_1.jpg)
+
+::: aside
+llustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst.
+:::
+
+## Tabular data: Why tidy data?
+
+![](https://www.openscapes.org/img/blog/tidydata/tidydata_2.jpg)
+
+::: aside
+llustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst.
+:::
+
+## Tabular data: File formats
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+#### Comma-delimited (.csv)
+
+- :thumbsup: commonly used
+- :thumbsdown: annoying when data itself contains commas
+
+:::
+
+::: {.column width="50%"}
+
+#### Tab-delimited (.tsv)
+
+- :thumbsup: no confusion when data contains commas or semicolons
+- :thumbsdown: not very commonly used (at least not yet)
+
+:::
+
+::::
+
+## The data
+
+:warning: **NOT REAL DATA** :warning:
+
+Modified data for the purposes of training, created by Alison Clarke and Michelle de Gruchy.
+
+:link: [Source](https://doi.org/10.5281/zenodo.6501593)
+
+## The data: variables
+
+| variable | description |
+|----------|-------------|
+| period | the period from which the artefact dates |
+| decoration_type | the type of decoration of the artefact |
+| ceramic_type | the type of ceramic of the artefact |
+| manufacture_technique | the technique used to manufacture the artefact |
+
+
+## Importing data: Folders
+
+1. Double click on the R Project you created for the workshop to open RStudio.
+2. Check that the files you see in your `Files` tab are the right ones (you should only see the `scripts` folder and the `.Rproj` file)
+3. Go to the console and type the following commands
+
+```{r}
+#| echo: true
+#| eval: false
+
+# create separate folders for the raw and clean data
+dir.create("data_raw")
+dir.create("data_clean")
+
+# only if you don't have one already, create a folder for the scripts
+dir.create("scripts")
+```
+
+## Importing data: Download
+
+Then we need to 1) download the data from Zenodo and 2) save it in the `data_raw` folder we just created it.
+
+We can do both in one go in R by typing the following command in the console:
+
+```{r download-data, eval=FALSE}
+#| echo: true
+#| eval: false
+
+# download the data
+download.file(url = "https://zenodo.org/record/6478181/files/ceramics_data.csv?download=1",
+              destfile = here("data_raw/ceramics_data.csv"))
+```
+
+After you have run this command, open the `data_raw` folder and check that there is a file called `ceramics_data.csv`.
+
+## Exercise 2.1
+
+:alarm_clock: **5 mins**
+
+```{r}
+countdown(minutes = 5)
+```
+
+Based on the output of `str(surveys)`, can you answer the following questions?
+
+- What is the class of the object `surveys`?
+- How many rows and how many columns are in this object?
+
+## Exercise 2.1 solution
+
+```{r}
+#| echo: true
+#| eval: false
+
+str(surveys)
+```
+
+`* class: data frame`
+
+`* how many rows: 34786,  how many columns: 13`
+
+## Exercise 2.2
+
+- Create a data.frame (surveys_200) containing only the data in row 200 of the surveys dataset.
+- Notice how `nrow()` gave you the number of rows in a `data.frame`?
+  - Use that number to pull out just that last row in the data frame.
+  - Compare that with what you see as the last row using tail() to make sure it’s meeting expectations.
+  - Pull out that last row using nrow() instead of the row number.
+  - Create a new data frame (surveys_last) from that last row.
+- Use `nrow()` to extract the row that is in the middle of the data frame. Store the content of this row in an object named `surveys_middle`.
+- Combine `nrow()` with the `-` notation above to reproduce the behavior of `head(surveys)`, keeping just the first through 6th rows of the `surveys` dataset.
+
+## Exercise 2.2 solution
+
+```{r}
+#| echo: true
+#| eval: false
+
+## 1.
+surveys_200 <- surveys[200, ]
+## 2.
+# Saving `n_rows` to improve readability and reduce duplication
+n_rows <- nrow(surveys)
+surveys_last <- surveys[n_rows, ]
+## 3.
+surveys_middle <- surveys[n_rows / 2, ]
+## 4.
+surveys_head <- surveys[-(7:n_rows), ]
+```
+
+## Factors
+
+R has a special data class, called **factor**, to deal with *categorical data*.
+Factors are very useful and contribute to making R particularly well suited to working with data.
+
+Factors are stored as **integers** associated with labels. 
+
+They can be ordered (ordinal) or unordered (nominal). 
+
+Factors create a structured relation between the different levels (values) of a categorical variable, such as days of the week or responses to a question in a survey. 
+
+Once created, factors can only contain a pre-defined set of values, known as **levels**.
+
+While factors look (and often behave) like character vectors, they are actually treated as integer vectors by R. **So you need to be very careful when treating them as strings.**
+
+## Exercise 2.3
+
+:alarm_clock: **5 mins**
+
+```{r}
+countdown(minutes = 5)
+```
+
+1. Change the columns `manufacture_technique` and `decoration_type` in the `surveys` data frame into a factor.
+2. Using the functions you learned before, can you find out…
+  - How many artefacts were manufactured using a slab technique?
+  - How many different decoration types are in the `decoration_type` column?
+
+
+## Exercise 2.3 solution
+
+```{r}
+#| echo: true
+#| eval: false
+
+surveys$manufacture_technique <- factor(surveys$manufacture_technique)
+surveys$decoration_type <- factor(surveys$decoration_type)
+summary(surveys)
+nlevels(surveys$decoration_type)
+
+```
+
+
+## Dates
+
+To avoid ambiguity, use the [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) standard: **YYYYMMDD** (or YYYY-MM-DD).
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Date_format_by_country_revised.svg/1600px-Date_format_by_country_revised.svg.png){width=900 height=500}
+
+::: aside
+This [image](https://en.m.wikipedia.org/wiki/File:Date_format_by_country_revised.svg) was created for [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page) and is used under a [CC-BY-SA licence](https://creativecommons.org/licenses/by-sa/4.0/).
+:::
+
+
+## Interim summary 2
+
+- :white_check_mark: Read data into R.
+- :white_check_mark: Understand and manipulate `data frames`.
+- :white_check_mark: Understand and manipulate `factors`.
+- :white_check_mark: Alternate between date formats.
+
+## Programming note
+
+When we say R is a language, we mean just that: We need to learn **a new way of communicating** that lets us talk to the R software. 
+
+Software isn't as smart as humans and have no tolerance for errors: if we don't tell it what we do just the way it wants, it won't work. 
+
+Learning how to speak the software's language takes time and practice. Today you learned **so much**: 
+
+# Thank you for your attention :sparkles:
+
+**See you tomorrow for data wrangling with `dplyr` and `tidyr` :wave:**
+
+
