@@ -1,5 +1,5 @@
 # About
-This repository conrains the materials used to teach a two-day introduction to R, presented as part of the [AEA Conference 2023](https://envarch.net/news#682feaad-5943-46b3-8d17-9b83179054eb.
+This repository conrains the materials used to teach a two-day introduction to R, presented as part of the [AEA Conference 2023](https://envarch.net/news#682feaad-5943-46b3-8d17-9b83179054eb).
 The workshop took place a few week after the conference, on 2 and 3 July.
 
 This is a hands-on live-conding workshop; you can find the scripts that were created during the two sessions in the `demos` folder.
